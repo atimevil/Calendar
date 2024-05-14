@@ -3,14 +3,9 @@ package com.sparta.calendar.controller;
 import com.sparta.calendar.dto.ScheduleRequestDto;
 import com.sparta.calendar.dto.ScheduleResponseDto;
 import com.sparta.calendar.entity.Schedule;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
-import java.util.Collections;
-import java.util.HashMap;
-import java.util.Map;
+import java.util.*;
 
 @RestController
 @RequestMapping("/api")
@@ -29,6 +24,13 @@ public class ScheduleController {
 
         ScheduleResponseDto responseDto = new ScheduleResponseDto(schedule);
         return responseDto;
+    }
+
+    @GetMapping("/calendars")
+    public List<ScheduleResponseDto> getSchedules() {
+        List<ScheduleResponseDto> scheduleList = schedules.values().stream().map(ScheduleResponseDto::new).toList();
+
+        return scheduleList;
     }
 
 }
