@@ -33,4 +33,15 @@ public class ScheduleController {
         return scheduleList;
     }
 
+    @GetMapping("/schedule/{id}")
+    public Schedule getSchedule(@PathVariable long id) {
+        if(schedules.containsKey(id)) {
+            Schedule schedule = schedules.get(id);
+
+            return schedules.get(schedule.getId());
+        } else {
+            throw new IllegalArgumentException("Schedule not found");
+        }
+    }
+
 }
