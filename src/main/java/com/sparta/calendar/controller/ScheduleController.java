@@ -35,10 +35,35 @@ public class ScheduleController {
 
     @GetMapping("/schedule/{id}")
     public Schedule getSchedule(@PathVariable long id) {
-        if(schedules.containsKey(id)) {
+        if (schedules.containsKey(id)) {
             Schedule schedule = schedules.get(id);
 
             return schedules.get(schedule.getId());
+        } else {
+            throw new IllegalArgumentException("Schedule not found");
+        }
+    }
+
+    @PutMapping("/schedule/{id}")
+    public Schedule updateSchedule(@PathVariable long id, @RequestBody ScheduleRequestDto requestDto) {
+        if (schedules.containsKey(id)) {
+            Schedule schedule = schedules.get(id);
+            if (schedule.getPassword().equals(requestDto.getPassword())) {
+                schedule.update(requestDto);
+                return schedule;
+            } else {
+                throw new IllegalArgumentException("Passwords don't match");
+            }
+        } else {
+            throw new IllegalArgumentException("Schedule not found");
+        }
+    }
+
+    @DeleteMapping("/schedule/{id}")
+    public long deleteSchedule(@PathVariable long id) {
+        if (schedules.containsKey(id)) {
+            schedules.remove(id);
+            return id;
         } else {
             throw new IllegalArgumentException("Schedule not found");
         }

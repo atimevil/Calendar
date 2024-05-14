@@ -24,4 +24,11 @@ public class Schedule {
         this.date = requestDto.getDate();
     }
 
+    public void update(ScheduleRequestDto requestDto) {
+        this.title = requestDto.getTitle();
+        this.description = requestDto.getDescription();
+        this.author = requestDto.getAuthor();
+        this.password = requestDto.getPassword();
+        this.date = requestDto.getDate();
+    }
 }
