@@ -26,7 +26,7 @@ public class ScheduleController {
         return responseDto;
     }
 
-    @GetMapping("/calendars")
+    @GetMapping("/schedules")
     public List<ScheduleResponseDto> getSchedules() {
         List<ScheduleResponseDto> scheduleList = schedules.values().stream().map(ScheduleResponseDto::new).toList();
 
