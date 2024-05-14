@@ -1,5 +1,6 @@
 package com.sparta.calendar.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.sparta.calendar.dto.ScheduleRequestDto;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -13,8 +14,10 @@ public class Schedule {
     private String title;
     private String description;
     private String author;
-    private String password;
     private String date;
+
+    @JsonIgnore
+    private String password;
 
     public Schedule(ScheduleRequestDto requestDto) {
         this.title = requestDto.getTitle();
