@@ -60,10 +60,15 @@ public class ScheduleController {
     }
 
     @DeleteMapping("/schedule/{id}")
-    public long deleteSchedule(@PathVariable long id) {
+    public long deleteSchedule(@PathVariable long id, @RequestBody ScheduleRequestDto requestDto) {
         if (schedules.containsKey(id)) {
-            schedules.remove(id);
-            return id;
+            Schedule schedule = schedules.get(id);
+            if (schedule.getPassword().equals(requestDto.getPassword())) {
+                schedules.remove(id);
+                return id;
+            } else {
+                throw new IllegalArgumentException("Passwords don't match");
+            }
         } else {
             throw new IllegalArgumentException("Schedule not found");
         }
