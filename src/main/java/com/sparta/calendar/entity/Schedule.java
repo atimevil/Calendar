@@ -19,19 +19,19 @@ public class Schedule {
     @JsonIgnore
     private String password;
 
-    public Schedule(ScheduleRequestDto requestDto) {
-        this.title = requestDto.getTitle();
-        this.description = requestDto.getDescription();
-        this.author = requestDto.getAuthor();
-        this.password = requestDto.getPassword();
-        this.date = requestDto.getDate();
+    public Schedule(ScheduleRequestDto request) {
+        this.title = request.getTitle();
+        this.description = request.getDescription();
+        this.author = request.getAuthor();
+        this.date = request.getDate();
+        this.password = request.getPassword();
     }
 
-    public void update(ScheduleRequestDto requestDto) {
-        this.title = requestDto.getTitle();
-        this.description = requestDto.getDescription();
-        this.author = requestDto.getAuthor();
-        this.password = requestDto.getPassword();
-        this.date = requestDto.getDate();
+    public void update(ScheduleRequestDto request) {
+        this.title = request.getTitle();
+        this.description = request.getDescription();
+        this.author = request.getAuthor();
+        this.date = request.getDate();
+        this.password = request.getPassword();
     }
 }
