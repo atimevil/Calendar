@@ -17,4 +17,12 @@ public class CommonResponse<T> {
     public static <T> CommonResponse<T> success() {
         return new CommonResponse<>(Result.OK.getCode(), Result.OK.getMessage(), null);
     }
+
+    public static <T> CommonResponse<T> fail(T data) {
+        return new CommonResponse<>(Result.FAIL.getCode(), Result.FAIL.getMessage(), data);
+    }
+
+    public static <T> CommonResponse<T> fail() {
+        return new CommonResponse<>(Result.FAIL.getCode(), Result.FAIL.getMessage(), null);
+    }
 }
