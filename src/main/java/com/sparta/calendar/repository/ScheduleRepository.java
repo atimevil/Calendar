@@ -1,16 +1,8 @@
 package com.sparta.calendar.repository;
 
 import com.sparta.calendar.entity.Schedule;
-import lombok.Getter;
+import org.springframework.data.jpa.repository.JpaRepository;
 
-import java.util.HashMap;
-import java.util.Map;
+public interface ScheduleRepository extends JpaRepository<Schedule, Long> {
 
-@Getter
-public class ScheduleRepository {
-    private Map<Long, Schedule> schedules = new HashMap<>();
-
-    public ScheduleRepository() {
-        this.schedules = new HashMap<>();
-    }
 }
