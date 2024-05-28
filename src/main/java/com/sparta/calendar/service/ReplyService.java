@@ -10,6 +10,8 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.time.LocalDateTime;
+
 @Service
 @RequiredArgsConstructor
 public class ReplyService {
@@ -24,6 +26,7 @@ public class ReplyService {
         Reply reply = new Reply();
         reply.setContent(requestDto.getContent());
         reply.setSchedule(schedule);
+        reply.setCreatedtime(LocalDateTime.now());
         replyRepository.save(reply);
         return new ReplyResponseDto(reply.getId(), reply.getContent());
     }

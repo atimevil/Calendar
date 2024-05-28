@@ -7,6 +7,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 @Entity
@@ -22,7 +23,7 @@ public class Schedule {
     private String title;
     private String description;
     private String author;
-    private String date;
+    private LocalDateTime createdtime;
 
     @JsonIgnore
     private String password;
@@ -34,15 +35,14 @@ public class Schedule {
         this.title = request.getTitle();
         this.description = request.getDescription();
         this.author = request.getAuthor();
-        this.date = request.getDate();
         this.password = request.getPassword();
+        this.createdtime = LocalDateTime.now();
     }
 
     public void update(ScheduleRequestDto request) {
         this.title = request.getTitle();
         this.description = request.getDescription();
         this.author = request.getAuthor();
-        this.date = request.getDate();
         this.password = request.getPassword();
     }
 }
