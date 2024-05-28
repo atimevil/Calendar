@@ -1,60 +1,33 @@
 package com.sparta.calendar.controller;
 
-import com.sparta.calendar.entity.Reply;
-import com.sparta.calendar.entity.Schedule;
-import com.sparta.calendar.repository.ReplyRepository;
-import com.sparta.calendar.repository.ScheduleRepository;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.ResponseEntity;
+import com.sparta.calendar.api_swagger.CommonResponse;
+import com.sparta.calendar.dto.ReplyRequestDto;
+import com.sparta.calendar.dto.ReplyResponseDto;
+import com.sparta.calendar.service.ReplyService;
+import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
-import java.time.LocalDateTime;
-import java.util.Optional;
-
+@RequiredArgsConstructor
 @RestController
 @RequestMapping("/api/schedules/{id}/comments")
 public class ReplyController {
 
-    @Autowired
-    private ReplyRepository replyRepository;
-
-    @Autowired
-    private ScheduleRepository scheduleRepository;
+    private final ReplyService replyService;
 
     @PostMapping()
-    public ResponseEntity<Reply> createReply(@PathVariable long id, @RequestBody Reply reply) {
-        Optional<Schedule> scheduleOptional = scheduleRepository.findById(id);
-        if(!scheduleOptional.isPresent()) {
-            throw new IllegalArgumentException("Schedule not found");
-        }
-
-        Schedule schedule = scheduleOptional.get();
-        reply.setSchedule(schedule);
-        reply.setCreatedtime(LocalDateTime.now());
-        replyRepository.save(reply);
-        return ResponseEntity.ok(reply);
+    public CommonResponse<ReplyResponseDto> createReply(@PathVariable long id, @RequestBody ReplyRequestDto reply) {
+        return CommonResponse.success(replyService.createReply(reply, id));
     }
 
-    @PutMapping("/{Id}")
-    public ResponseEntity<Reply> updateReply(@PathVariable long Id, @RequestBody Reply replyDetails) {
-        Optional<Reply> replyOptional = replyRepository.findById(Id);
-        if(!replyOptional.isPresent()) {
-            throw new IllegalArgumentException("Schedule not found");
-        }
-        Reply reply = replyOptional.get();
-        reply.setContent(replyDetails.getContent());
-        replyRepository.save(reply);
-        return ResponseEntity.ok(reply);
+    @PutMapping("/{id}")
+    public CommonResponse<Void> updateReply(@PathVariable long id, @RequestBody ReplyRequestDto replyDetails) {
+        replyService.updateReply(id, replyDetails);
+        return CommonResponse.success();
     }
 
-    @DeleteMapping("/{Id}")
-    public ResponseEntity<Void> deleteReply(@PathVariable long Id) {
-        Optional<Reply> replyOptional = replyRepository.findById(Id);
-        if(!replyOptional.isPresent()) {
-            throw new IllegalArgumentException("Schedule not found");
-        }
-
-        replyRepository.delete(replyOptional.get());
-        return (ResponseEntity<Void>) ResponseEntity.ok();
+    @DeleteMapping("/{id}")
+    public CommonResponse<ReplyResponseDto> deleteReply(@PathVariable long id) {
+        replyService.deleteReply(id);
+        return CommonResponse.success();
     }
 }
