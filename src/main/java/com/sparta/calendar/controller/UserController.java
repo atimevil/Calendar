@@ -1,21 +1,18 @@
 package com.sparta.calendar.controller;
 
 import com.sparta.calendar.dto.SignupRequestDto;
-import com.sparta.calendar.dto.UserInfoDto;
-import com.sparta.calendar.entity.User;
 import com.sparta.calendar.repository.UserRepositroy;
 import com.sparta.calendar.service.UserService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.FieldError;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
 
 import java.util.List;
-import java.util.Optional;
 
 @Slf4j
 @Controller

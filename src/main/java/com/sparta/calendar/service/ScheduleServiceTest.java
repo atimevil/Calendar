@@ -25,7 +25,7 @@
 //        return responseDto;
 //    }
 //
-//    public List<ScheduleResponseDto> getSchedules() {
+//    public List<ScheduleResponseDto> getScheduleRepository() {
 //        List<ScheduleResponseDto> scheduleList = schedules.values().stream().map(ScheduleResponseDto::new).toList();
 //
 //        return scheduleList; // 작성일 기준 내림차순으로 정렬되게 해야함

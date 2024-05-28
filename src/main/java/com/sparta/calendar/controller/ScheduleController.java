@@ -1,51 +1,16 @@
 package com.sparta.calendar.controller;
 
+import com.sparta.calendar.api_swagger.CommonResponse;
 import com.sparta.calendar.dto.ScheduleRequestDto;
 import com.sparta.calendar.dto.ScheduleResponseDto;
 import com.sparta.calendar.entity.Schedule;
-import org.springframework.web.bind.annotation.*;
-
-//@RestController
-//@RequestMapping("/api")
-//public class ScheduleController {
-//
-//    ScheduleServiceTest scheduleService = new ScheduleServiceTest();
-//
-//    @PostMapping("/schedule")
-//    public ScheduleResponseDto createSchedule(@RequestBody ScheduleRequestDto requestDto) {
-//        return scheduleService.createSchedule(requestDto);
-//    }
-//
-//    @GetMapping("/schedules")
-//    public List<ScheduleResponseDto> getSchedules() {
-//        return scheduleService.getSchedules();
-//
-//    }
-//
-//    @GetMapping("/schedule/{id}")
-//    public Schedule getSchedule(@PathVariable long id) {
-//        return scheduleService.getSchedule(id);
-//    }
-//
-//    @PutMapping("/schedule/{id}")
-//    public Schedule updateSchedule(@PathVariable long id, @RequestBody ScheduleRequestDto requestDto) {
-//        return scheduleService.updateSchedule(id, requestDto);
-//    }
-//
-//    @DeleteMapping("/schedule/{id}")
-//    public long deleteSchedule(@PathVariable long id, @RequestBody ScheduleRequestDto requestDto) {
-//        return scheduleService.deleteSchedule(id, requestDto);
-//    }
-//
-//}
-
-import com.sparta.calendar.api_swagger.CommonResponse;
 import com.sparta.calendar.service.ScheduleService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -95,7 +60,8 @@ public class ScheduleController {
     @ApiResponse(responseCode = "500", description = "처리 방법 오류")
     public CommonResponse<List<ScheduleResponseDto>> getSchedules() {
         try {
-            return CommonResponse.success(scheduleService.getSchedules());
+            List<ScheduleResponseDto> schedules = scheduleService.getSchedules();
+            return CommonResponse.success(schedules);
         } catch (IllegalArgumentException e) {
             return CommonResponse.fail();
         }
