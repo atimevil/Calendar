@@ -9,14 +9,14 @@ import org.springframework.web.bind.annotation.*;
 
 @RequiredArgsConstructor
 @RestController
-@RequestMapping("/api/schedules/{id}/comments")
+@RequestMapping("/api/schedules/{scheduleId}/replies")
 public class ReplyController {
 
     private final ReplyService replyService;
 
-    @PostMapping()
-    public CommonResponse<ReplyResponseDto> createReply(@PathVariable long id, @RequestBody ReplyRequestDto reply) {
-        return CommonResponse.success(replyService.createReply(reply, id));
+    @PostMapping
+    public CommonResponse<ReplyResponseDto> createReply(@PathVariable long scheduleId, @RequestBody ReplyRequestDto reply) {
+        return CommonResponse.success(replyService.createReply(reply, scheduleId));
     }
 
     @PutMapping("/{id}")
@@ -26,7 +26,7 @@ public class ReplyController {
     }
 
     @DeleteMapping("/{id}")
-    public CommonResponse<ReplyResponseDto> deleteReply(@PathVariable long id) {
+    public CommonResponse<Void> deleteReply(@PathVariable long id) {
         replyService.deleteReply(id);
         return CommonResponse.success();
     }

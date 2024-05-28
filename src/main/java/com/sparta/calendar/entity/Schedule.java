@@ -2,19 +2,23 @@ package com.sparta.calendar.entity;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.sparta.calendar.dto.ScheduleRequestDto;
-import jakarta.persistence.CascadeType;
-import jakarta.persistence.OneToMany;
+import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import java.util.List;
 
+@Entity
 @Getter
 @Setter
 @NoArgsConstructor
 public class Schedule {
-    private long id;
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
+
     private String title;
     private String description;
     private String author;
@@ -23,7 +27,7 @@ public class Schedule {
     @JsonIgnore
     private String password;
 
-    @OneToMany(mappedBy = "schedule", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "schedule", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Reply> replies;
 
     public Schedule(ScheduleRequestDto request) {

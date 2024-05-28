@@ -8,6 +8,7 @@ import com.sparta.calendar.repository.ReplyRepository;
 import com.sparta.calendar.repository.ScheduleRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 @Service
 @RequiredArgsConstructor
@@ -16,8 +17,10 @@ public class ReplyService {
     private final ReplyRepository replyRepository;
     private final ScheduleRepository scheduleRepository;
 
+    @Transactional
     public ReplyResponseDto createReply(ReplyRequestDto requestDto, Long scheduleId) {
-        Schedule schedule = scheduleRepository.findById(scheduleId).orElseThrow(() -> new IllegalArgumentException("Schedule not found"));
+        Schedule schedule = scheduleRepository.findById(scheduleId)
+                .orElseThrow(() -> new IllegalArgumentException("Schedule not found"));
         Reply reply = new Reply();
         reply.setContent(requestDto.getContent());
         reply.setSchedule(schedule);
@@ -25,24 +28,21 @@ public class ReplyService {
         return new ReplyResponseDto(reply.getId(), reply.getContent());
     }
 
-//    public Reply getReply(Long replyId) {
-//        return replyRepository.findById(replyId).orElseThrow(() -> new IllegalArgumentException("Reply not found"));
-//    }
-
+    @Transactional
     public ReplyResponseDto updateReply(Long replyId, ReplyRequestDto requestDto) {
-        Reply reply = replyRepository.findById(replyId).orElseThrow(() -> new IllegalArgumentException("Reply not found"));
+        Reply reply = replyRepository.findById(replyId)
+                .orElseThrow(() -> new IllegalArgumentException("Reply not found"));
         reply.setContent(requestDto.getContent());
         replyRepository.save(reply);
         return new ReplyResponseDto(reply.getId(), reply.getContent());
     }
 
+    @Transactional
     public void deleteReply(Long replyId) {
-        replyRepository.deleteById(replyId);
+        Reply reply = replyRepository.findById(replyId)
+                .orElseThrow(() -> new IllegalArgumentException("Reply not found"));
+        replyRepository.delete(reply);
     }
 
-//    public List<Reply> getReplies(Long scheduleId) {
-//        List<Reply> replies = replyRepository.findAll();
-//        return replies;
-//    }
 
 }
