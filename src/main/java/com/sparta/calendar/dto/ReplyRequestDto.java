@@ -7,4 +7,5 @@ import lombok.Setter;
 @Setter
 public class ReplyRequestDto {
     private String content;
+    private long id;
 }

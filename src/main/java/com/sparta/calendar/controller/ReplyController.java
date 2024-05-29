@@ -26,8 +26,8 @@ public class ReplyController {
     }
 
     @DeleteMapping("/{id}")
-    public CommonResponse<Void> deleteReply(@PathVariable long id) {
-        replyService.deleteReply(id);
+    public CommonResponse<Void> deleteReply(@PathVariable long id, @RequestParam Long authorId) {
+        replyService.deleteReply(id, authorId);
         return CommonResponse.success();
     }
 }
