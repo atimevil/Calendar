@@ -5,6 +5,7 @@ import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.hibernate.validator.constraints.Length;
 
 import java.util.List;
 
@@ -19,12 +20,14 @@ public class User {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @Length(min = 4, max = 10)
     @Column(nullable = false, unique = true)
     private String nickname;
 
     @Column(nullable = false)
     private String username;
 
+    @Length(min = 8, max = 15)
     @Column(nullable = false)
     private String password;
 
